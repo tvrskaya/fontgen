@@ -73,16 +73,16 @@ int main(int argc, char* argv[])
 	}	
 	
 	png_read_image(png_ptr, row_pointers);
-	/*
+	
 	for (int y = 0; y < image_height; y++)
 	{
 		for (int x = 0; x < png_get_rowbytes(png_ptr, info_ptr); x++)
 		{
 			printf("%d ", row_pointers[y][x]);
 		}
-		printf("|\n");
+		//printf("\n");
 	}
-	*/
+	
 	fclose(fp);	
 	return 0;
 }
