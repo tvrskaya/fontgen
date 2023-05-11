@@ -46,8 +46,8 @@ int main(int argc, char* argv[])
 	png_init_io(png_ptr, fp);
 	png_set_sig_bytes(png_ptr, number);
 	png_read_info(png_ptr, info_ptr);
-	png_set_rgb_to_gray(png_ptr, PNG_ERROR_ACTION_NONE, 54/256, 183/256);
-        png_read_update_info(png_ptr, info_ptr);	
+	//png_set_rgb_to_gray(png_ptr, PNG_ERROR_ACTION_NONE, 54/256, 183/256);
+        //png_read_update_info(png_ptr, info_ptr);	
 	printf("Channels: %d\n", png_get_channels(png_ptr, info_ptr));  
 	printf("Rowbytes: %lld\n", png_get_rowbytes(png_ptr, info_ptr));
 	
@@ -74,15 +74,18 @@ int main(int argc, char* argv[])
 	
 	png_read_image(png_ptr, row_pointers);
 	
+	printf("const unsigned char FONT[3*FONT_WIDTH*FONT_HEIGHT] = {\n");
 	for (int y = 0; y < image_height; y++)
 	{
 		for (int x = 0; x < png_get_rowbytes(png_ptr, info_ptr); x++)
 		{
-			printf("%d ", row_pointers[y][x]);
+			printf("%d, ", row_pointers[y][x]);
+			if (x%16 == 0 && x!=0)
+				printf("\n");
 		}
-		//printf("\n");
+		printf("\n");
 	}
-	
+	printf("};");
 	fclose(fp);	
 	return 0;
 }
